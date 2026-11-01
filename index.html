@@ -42,7 +42,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px
 <p>တိကျတဲ့ Target Audience တည်ဆောက်ပါ · Ad Policy စစ်ပါ · Budget ခန့်မှန်းပါ · မြန်မာနိုင်ငံမှာ အဲဒီနေ့ တကယ်တင်ထားတဲ့ Ads တွေကို Meta Ad Library မှာ Live ကြည့်ပါ</p>
 </div></header>
 <nav><div class="wrap" style="padding:0">
-<button class="on" data-t="aud">🎯 Audience Builder</button><button data-t="pol">🛡️ Policy Checker</button><button data-t="bud">💰 Budget</button><button data-t="live">📡 Live Ads (Myanmar)</button><button data-t="snap">📈 Daily Snapshot</button><button data-t="comp">👀 Competitor</button>
+<button class="on" data-t="aud">🎯 Audience Builder</button><button data-t="pol">🛡️ Policy Checker</button><button data-t="photo">📷 Photo Auto Campaign</button><button data-t="bud">💰 Budget</button><button data-t="live">📡 Live Ads (Myanmar)</button><button data-t="snap">📈 Daily Snapshot</button><button data-t="comp">👀 Competitor</button>
 </div></nav>
 <main class="wrap">
 
@@ -71,6 +71,26 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px
 <textarea id="pText" placeholder="ဥပမာ: အသက် ၃၀ ကျော် အမျိုးသမီးများအတွက်! ၁၀၀% အာမခံ၊ မသုံးမီ/သုံးပြီး ကွာခြားချက် ကြည့်ပါ..."></textarea>
 <p><button class="btn" onclick="checkPolicy()">စစ်ဆေးပါ</button></p>
 <div id="polOut"></div>
+</div></section>
+
+
+<!-- PHOTO AUTO -->
+<section class="tab" id="photo">
+<div class="card"><h2>📷 Photo Auto Campaign Planner</h2>
+<p class="mut">ကုန်ပစ္စည်း ဓာတ်ပုံ တင်လိုက်ရုံနဲ့ — Campaign ဘယ်နှခု ဆောက်သင့်လဲ၊ Detail Targeting ဘာတွေ ထားရမလဲ အလိုအလျောက် အကြံပြုပေးပါမယ်။</p>
+<div class="notice"><b>ဘယ်လို အလုပ်လုပ်လဲ:</b> ဓာတ်ပုံရဲ့ <b>အဓိက အရောင်</b> နဲ့ <b>ဖိုင်နာမည်</b> ကို ကြည့်ပြီး ကုန်ပစ္စည်း အမျိုးအစားကို <b>ပဏာမ ခန့်မှန်း</b>ပေးတာပါ (စိမ်း→ကျောက်စိမ်း, နီ→ပတ္တမြား, ပြာ→နီလာ, ဖြူ/လက်လက်→စိန်, ရွှေဝါ→ရွှေထည်)။ AI အတိအကျ မဟုတ်လို့ ခန့်မှန်းချက်ကို <b>ကိုယ်တိုင် အတည်ပြု/ပြင်</b>ပြီးမှ Plan ထုတ်ပါ။ ဓာတ်ပုံသည် Browser ထဲမှာပဲ စစ်ဆေးပြီး ဘယ်ကိုမှ မပို့ပါ။</div>
+<div class="grid">
+<div><label>ကုန်ပစ္စည်း ဓာတ်ပုံ Upload</label><input type="file" id="phFile" accept="image/*" onchange="handlePhoto(event)"></div>
+<div><label>ကုန်ပစ္စည်း အမျိုးအစား (အတည်ပြုပါ)</label><select id="phType">
+<option value="jade">ကျောက်စိမ်း (Jade)</option><option value="ruby">ပတ္တမြား (Ruby)</option><option value="sapphire">နီလာ (Sapphire)</option><option value="diamond">စိန် (Diamond)</option><option value="gold">ရွှေထည် (Gold Jewellery)</option><option value="gems">ရတနာ (အထွေထွေ)</option><option value="cosmetic">အလှကုန် / Skincare</option><option value="fashion">Fashion</option><option value="food">အစားအသောက်</option><option value="mobile">Mobile / Electronics</option><option value="shop">Online Shop (အထွေထွေ)</option></select></div>
+<div><label>ဈေးနှုန်း (ကျပ်)</label><input type="number" id="phPrice" placeholder="ဥပမာ: 850000" min="0"></div>
+<div><label>တစ်ရက် Budget (USD $)</label><input type="number" id="phBudget" value="10" min="1"></div>
+<div><label>ပန်းတိုင်</label><select id="phGoal"><option>Messages (Messenger မှာ မေးမြန်း/ဝယ်)</option><option>Sales (တိုက်ရိုက် ရောင်းအား)</option></select></div>
+</div>
+<p id="phDetect" class="mut"></p>
+<img id="phPreview" alt="" style="max-width:260px;border-radius:10px;display:none;margin:8px 0">
+<p><button class="btn" onclick="genPhotoPlan()">Campaign Plan အလိုအလျောက် ထုတ်ပေးပါ</button></p>
+<div id="phOut"></div>
 </div></section>
 
 <!-- BUDGET -->
@@ -147,10 +167,11 @@ health:{n:"ကျန်းမာရေး / ဆေး",i:["Health","Pharmacy","W
 salon:{n:"Beauty Salon / Spa",i:["Beauty salon","Spa","Hair care","Nail art"],cpm:[0.7,2.0],msg:[0.3,1.0]},
 car:{n:"ကား / Automotive",i:["Car","Toyota","Automotive","Driving"],cpm:[1.2,3.6],msg:[0.8,2.8]},
 finance:{n:"ငွေကြေး / Finance",i:["Banking","Mobile banking","KBZPay","Wave Money"],cpm:[1.2,3.4],msg:[0.6,2.0]},
+gems:{n:"ကျောက်မြတ်ရတနာ / Gems & Jewelry",i:["Jade","Gemstone","Jewelry","Gold","Diamond","Luxury goods"],cpm:[2.0,5.5],msg:[1.2,4.0]},
 digital:{n:"Digital Service / Agency",i:["Digital marketing","Social media","Business","Entrepreneurship"],cpm:[1.0,3.0],msg:[0.5,1.8]}};
 var LOCS={"my":"မြန်မာတစ်နိုင်ငံလုံး",ygn:"ရန်ကုန်",mdy:"မန္တလေး",npt:"နေပြည်တော်",bgo:"ပဲခူး",tgi:"တောင်ကြီး / ရှမ်း",mlm:"မော်လမြိုင်",pth:"ပုသိမ်"};
 var LOCBASE={my:14500000,ygn:3400000,mdy:950000,npt:320000,bgo:430000,tgi:380000,mlm:310000,pth:290000};
-var LIVE=[["အလှကုန်","အလှကုန်"],["Online Shop","online shop"],["သင်တန်း","သင်တန်း"],["အိမ်ခြံမြေ","အိမ်ခြံမြေ"],["Fashion","fashion"],["အစားအသောက်","restaurant"],["Mobile ဖုန်း","mobile phone"],["အလုပ်အကိုင်","job"],["ခရီးသွား","travel"],["ကျန်းမာရေး","health"],["ကား","car"],["Skincare (EN)","skincare"],["Course (EN)","online course"],["Real Estate (EN)","real estate"],["Food Delivery (EN)","food delivery"],["Banking / Pay","KBZPay"],["Digital Marketing","digital marketing"]];
+var LIVE=[["အလှကုန်","အလှကုန်"],["Online Shop","online shop"],["သင်တန်း","သင်တန်း"],["အိမ်ခြံမြေ","အိမ်ခြံမြေ"],["Fashion","fashion"],["အစားအသောက်","restaurant"],["Mobile ဖုန်း","mobile phone"],["အလုပ်အကိုင်","job"],["ခရီးသွား","travel"],["ကျန်းမာရေး","health"],["ကား","car"],["Skincare (EN)","skincare"],["Course (EN)","online course"],["Real Estate (EN)","real estate"],["Food Delivery (EN)","food delivery"],["Banking / Pay","KBZPay"],["Digital Marketing","digital marketing"],["ကျောက်စိမ်း (Jade)","jade"],["ပတ္တမြား / ရတနာ","ပတ္တမြား"],["Gemstone (EN)","gemstone"]];
 function $(i){return document.getElementById(i)}
 function fillCats(){var h="";for(var k in CATS)h+='<option value="'+k+'">'+CATS[k].n+"</option>";$("aCat").innerHTML=h;$("bCat").innerHTML=h;var l="";for(var x in LOCS)l+='<option value="'+x+'">'+LOCS[x]+"</option>";$("aLoc").innerHTML=l}
 document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){document.querySelectorAll("nav button").forEach(function(x){x.classList.remove("on")});document.querySelectorAll("section.tab").forEach(function(x){x.classList.remove("on")});b.classList.add("on");$(b.dataset.t).classList.add("on")}});
@@ -159,8 +180,9 @@ function estReach(loc,amin,amax,gender,mult){var base=LOCBASE[loc]||1000000;var 
 function buildAudience(){var c=CATS[$("aCat").value],prod=$("aProd").value.trim(),loc=$("aLoc").value,amin=+$("aAgeMin").value||18,amax=+$("aAgeMax").value||65,g=$("aGender").value,obj=$("aObj").value,pl=$("aPlace").value;
 var sets=[["1) Precise (တိကျဆုံး — စတင်ရန် အကောင်းဆုံး)",c.i.slice(0,3).join(", ")+" + Narrow Further နဲ့ ထပ်ရန်: "+(c.i[3]||"Online shopping"),0.16],["2) Balanced (ချိန်ညှိထားသော)",c.i.join(", "),0.34],["3) Broad / Advantage+ (ကျယ်ကျယ် — Budget များမှ)", "Interest မထည့်ဘဲ Advantage+ Audience",1.0]];
 var txt="",html="";sets.forEach(function(s){var r1=estReach(loc,amin,amax,g,s[1]*0.8),r2=estReach(loc,amin,amax,g,s[1]*1.2);var block="\nObjective: "+obj+"\nLocation: "+LOCS[loc]+"\nAge: "+amin+"–"+amax+" · Gender: "+(g==="f"?"အမျိုးသမီး":g==="m"?"အမျိုးသား":"နှစ်မျိုးလုံး")+"\nInterests: "+s[1]+"\nPlacement: "+pl+(prod?"\nProduct: "+prod:"")+"\nခန့်မှန်း Reach: "+fmt(r1)+" – "+fmt(r2);txt+=block+"\n\n";html+='<div class="card"><b>'+s[0]+'</b><div class="out">'+block.replace(/</g,"&lt;")+"</div></div>"});
+var gemTip=($("aCat").value==="gems")?'<div class="notice">💎 <b>ရတနာ အထူး အကြံပြုချက်:</b> ကျောက်အမျိုးအစားအလိုက် Audience ခွဲပါ — ကျောက်စိမ်း သီးသန့် / ပတ္တမြား-နီလာ သီးသန့် / ရွှေ-စိန် သီးသန့်။ ဝယ်သူ ရည်ရွယ်ချက်အလိုက် (စုဆောင်းသူ/ရင်းနှီးမြှုပ်နှံသူ၊ မင်္ဂလာ၊ လက်ဆောင်၊ ဖက်ရှင်) လည်း ခွဲရင် ပိုတိကျပါတယ်။ အားလုံးကို Audience တစ်စုတည်း မထည့်ပါနဲ့။ မိုးကုတ် ရတနာ၊ မန္တလေး/ရန်ကုန် ရတနာဈေး စိတ်ဝင်စားသူတွေ အဓိက ဖြစ်ပါတယ်။</div>':"";
 var warn=estReach(loc,amin,amax,g,0.16)<20000?'<div class="notice">⚠️ Precise audience က 20,000 အောက် နည်းနေပါတယ် — အသက်အပိုင်းကို ချဲ့ပါ၊ သို့မဟုတ် Interest တစ်ခု လျှော့ပါ။ ကျဉ်းလွန်းရင် Ad စျေးကြီးပြီး လူနည်းနည်းပဲ မြင်ပါမယ်။</div>':"";
-$("audOut").innerHTML=warn+html+'<button class="btn ghost" onclick="copyTxt(window._audTxt)">📋 Audience ၃ စုံလုံး Copy ကူးပါ</button>';window._audTxt=txt}
+$("audOut").innerHTML=gemTip+warn+html+'<button class="btn ghost" onclick="copyTxt(window._audTxt)">📋 Audience ၃ စုံလုံး Copy ကူးပါ</button>';window._audTxt=txt}
 function copyTxt(t){navigator.clipboard.writeText(t||"").then(function(){alert("Copy ကူးပြီးပါပြီ — Ads Manager ထဲမှာ Paste ချလို့ရပါပြီ")},function(){alert("Copy မရပါ — စာကို လက်ဖြင့် ရွေးကူးပါ")})}
 var RULES=[
 [/are you (a)?(woman|man|female|male)|you are \d|အသက်?\d+?(ကျော်|နှစ်)|အမျိုးသမီးများအတွက်|အမျိုးသားများအတွက်/i,"high","Personal Attributes — Meta က 'သင်' ဟု လူကို တိုက်ရိုက် ရည်ညွှန်းပြီး အသက်/ကျား-မ ပြောတာကို တားမြစ်ပါတယ်","'အမျိုးသမီးများ' အစား ကုန်ပစ္စည်းအကျိုးကျေးဇူးကိုသာ ရေးပါ၊ လူကို မရည်ညွှန်းပါနဲ့"],
@@ -198,6 +220,35 @@ function renderComp(){var a=load("mm_ads_competitors_v1");if(!a.length){$("compO
 var rows=a.map(function(x,i){var w=x.days>=30?"🏆 Winner ဖြစ်နိုင် (30+ ရက်)":x.days>=14?"✅ ကောင်းနေပုံ (14+ ရက်)":x.days>=7?"👀 စောင့်ကြည့်ရန် (7+ ရက်)":"အသစ်";return `<tr><td>${x.p.replace(/</g,"&lt;")}</td><td>${x.f}</td><td>${x.days} ရက် · ${w}</td><td>${(x.cta||"").replace(/</g,"&lt;")}</td><td>${(x.note||"").replace(/</g,"&lt;")}</td><td><a target="_blank" rel="noopener" href="${liveUrl(x.p)}">Live ပြန်စစ် ↗</a></td><td><button class="btn danger sm" onclick="delComp(${i})">ဖျက်</button></td></tr>`}).join("");
 $("compOut").innerHTML="<table><tr><th>Page</th><th>Format</th><th>ရက်ကြာ / အဆင့်</th><th>CTA</th><th>ခန့်မှန်း / မှတ်ချက်</th><th></th><th></th></tr>"+rows+"</table>"}
 function exportCsv(kind){var a=load(kind==="snap"?"mm_ads_snapshots_v1":"mm_ads_competitors_v1");if(!a.length){alert("ထုတ်ရန် မှတ်တမ်း မရှိသေးပါ");return}var keys=Object.keys(a[0]);var csv=keys.join(",")+"\n"+a.map(function(r){return keys.map(function(k){return '"'+String(r[k]==null?"":r[k]).replace(/"/g,'""')+'"'}).join(",")}).join("\n");var b=new Blob(["\ufeff"+csv],{type:"text/csv"});var u=URL.createObjectURL(b);var l=document.createElement("a");l.href=u;l.download=kind==="snap"?"ads-snapshots.csv":"competitors.csv";l.click();URL.revokeObjectURL(u)}
+
+var SUB={
+jade:{n:"ကျောက်စိမ်း (Jade)",core:["Jade","Gemstone","Jewelry"],narrow:["Luxury goods","Investment"],age:"28-55",loc:"Yangon, Mandalay, Naypyidaw (ကျောက်ဝိုင်းနဲ့ နီးတဲ့ Muse/Tachileik ကို Ads Manager မှာ ထပ်ထည့်နိုင်)",hook:["သဘာဝ ကျောက်စိမ်း — အရောင်/အသား အနီးကပ် ကြည့်နိုင်ပါပြီ","ကျောက်စိမ်း ချစ်သူများအတွက် ဒီတစ်တုံး အထူး","Certificate စစ်ဆေးနိုင်တဲ့ ကျောက်စိမ်း — Messenger မှာ မေးပါ"]},
+ruby:{n:"ပတ္တမြား (Ruby)",core:["Ruby (gemstone)","Gemstone","Jewelry"],narrow:["Luxury goods","Wedding jewellery"],age:"30-60",loc:"Yangon, Mandalay, Naypyidaw",hook:["မိုးကုတ် ပတ္တမြား — အရောင် စစ်မှန်မှု အနီးကပ် ပြထားပါတယ်","စုဆောင်းသူများအတွက် ပတ္တမြား အထူး","မင်္ဂလာ/လက်ဆောင်အတွက် ပတ္တမြား လက်စွပ်"]},
+sapphire:{n:"နီလာ (Sapphire)",core:["Sapphire","Gemstone","Jewelry"],narrow:["Luxury goods","Astrology"],age:"28-55",loc:"Yangon, Mandalay, Naypyidaw",hook:["နီလာ အပြာရောင် စစ်စစ် — Video နဲ့ ကြည့်ပါ","ရာသီခွင်/ယုံကြည်မှုအရ ဆောင်ကြတဲ့ နီလာ","လက်ဆောင်ပေးဖို့ နီလာ လက်ဝတ်ရတနာ"]},
+diamond:{n:"စိန် (Diamond)",core:["Diamond","Jewelry","Engagement ring"],narrow:["Wedding","Luxury goods"],age:"25-45",loc:"Yangon, Mandalay, Naypyidaw",hook:["စိန် လက်စွပ် — မင်္ဂလာ အတွက် အထူး ဒီဇိုင်း","လက်လက် တောက်ပတဲ့ စိန် နားကပ်/လည်ဆွဲ","Certificate ပါတဲ့ စိန်ထည် — Messenger မှာ စုံစမ်းပါ"]},
+gold:{n:"ရွှေထည် (Gold Jewellery)",core:["Gold","Jewelry","Wedding jewellery"],narrow:["Investment","Wedding"],age:"25-55",loc:"Yangon, Mandalay, Naypyidaw, Bago",hook:["ရွှေထည် ဒီဇိုင်းသစ် — အလေးချိန်/ရွှေရည် အတိအကျ ပြပေးပါတယ်","မင်္ဂလာ ရွှေထည် အစုံလိုက်","ရင်းနှီးမြှုပ်နှံမှုအတွက်ပါ သင့်တော်တဲ့ ရွှေထည်"]},
+gems:{n:"ရတနာ (အထွေထွေ)",core:["Gemstone","Jewelry","Luxury goods"],narrow:["Investment","Wedding jewellery"],age:"28-55",loc:"Yangon, Mandalay, Naypyidaw",hook:["ရတနာ အမျိုးမျိုး — အနီးကပ် Video နဲ့ ကြည့်ပါ","စုဆောင်းသူများအတွက် ရတနာ အထူး","Certificate စစ်ဆေးနိုင်ပါတယ် — Messenger မှာ မေးပါ"]},
+cosmetic:{n:"အလှကုန် / Skincare",core:["Skin care","Beauty","Cosmetics"],narrow:["Online shopping"],age:"18-44",loc:"မြန်မာတစ်နိုင်ငံလုံး",hook:["ဒီ Skincare က ဘာကြောင့် လူကြိုက်များလဲ","နေ့တိုင်း သုံးဖို့ လွယ်ကူတဲ့ Skincare routine","Messenger မှာ အသားအရေ အလိုက် မေးမြန်းနိုင်ပါတယ်"]},
+fashion:{n:"Fashion",core:["Fashion","Shopping and fashion"],narrow:["Online shopping"],age:"18-40",loc:"မြန်မာတစ်နိုင်ငံလုံး",hook:["ဒီဇိုင်းသစ် ရောက်ပါပြီ — ဆိုဒ်/အရောင် ရွေးနိုင်ပါတယ်","နေ့တိုင်း ဝတ်ဖို့ သက်တောင့်သက်သာ Fashion","Messenger မှာ ဆိုဒ် မေးပြီး မှာယူပါ"]},
+food:{n:"အစားအသောက်",core:["Food","Food delivery","Restaurant"],narrow:["Cooking"],age:"18-50",loc:"ကိုယ့် ဆိုင်ရှိတဲ့ မြို့ အနီးတဝိုက်",hook:["ဒီနေ့ အထူး Menu","မှာယူရလွယ်ပြီး မြန်မြန် ပို့ပေးပါတယ်","Messenger မှာ မှာယူပါ"]},
+mobile:{n:"Mobile / Electronics",core:["Mobile phone","Technology","Samsung"],narrow:["Online shopping"],age:"18-45",loc:"မြန်မာတစ်နိုင်ငံလုံး",hook:["Specification အပြည့်အစုံနဲ့ ဒီ Model","အာမခံ ပါတဲ့ ပစ္စည်း — Messenger မှာ မေးပါ","အရစ်ကျ/ငွေချေစနစ် မေးမြန်းနိုင်ပါတယ်"]},
+shop:{n:"Online Shop (အထွေထွေ)",core:["Online shopping","Facebook Marketplace"],narrow:["E-commerce"],age:"20-44",loc:"မြန်မာတစ်နိုင်ငံလုံး",hook:["ပစ္စည်းအသစ် ရောက်ပါပြီ","Messenger မှာ မှာယူရလွယ်ပါတယ်","အိမ်အရောက် ပို့ပေးပါတယ်"]}};
+function handlePhoto(ev){var f=ev.target.files&&ev.target.files[0];if(!f)return;var url=URL.createObjectURL(f);var img=$("phPreview");img.src=url;img.style.display="block";
+var name=(f.name||"").toLowerCase();var byName="";if(/jade|emerald/.test(name))byName="jade";else if(/ruby/.test(name))byName="ruby";else if(/sapphire/.test(name))byName="sapphire";else if(/diamond/.test(name))byName="diamond";else if(/gold/.test(name))byName="gold";
+var im=new Image();im.onload=function(){try{var cv=document.createElement("canvas");cv.width=80;cv.height=80;var cx=cv.getContext("2d");cx.drawImage(im,0,0,80,80);var d=cx.getImageData(0,0,80,80).data;var g=0,r=0,b=0,y=0,w=0,n=0;for(var i=0;i<d.length;i+=16){var R=d[i],G=d[i+1],B=d[i+2];n++;if(G>R+18&&G>B+10)g++;else if(R>G+35&&R>B+25)r++;else if(B>R+25&&B>G+10)b++;else if(R>140&&G>105&&B<100)y++;else if(R>200&&G>200&&B>200)w++}
+var cand=[["jade",g],["ruby",r],["sapphire",b],["gold",y],["diamond",w]].sort(function(a,c){return c[1]-a[1]});var guess=byName||(cand[0][1]/n>0.18?cand[0][0]:"");
+if(guess){$("phType").value=guess;$("phDetect").innerHTML="🔎 ပဏာမ ခန့်မှန်းချက်: <b>"+SUB[guess].n+"</b>"+(byName?" (ဖိုင်နာမည်ကို ကြည့်ပြီး)":" (ဓာတ်ပုံ အရောင်ကို ကြည့်ပြီး)")+" — မှားနေရင် အပေါ်က အမျိုးအစားမှာ ပြင်ရွေးပါ။"}else{$("phDetect").textContent="🔎 အရောင်နဲ့ သေချာ မခန့်မှန်းနိုင်ပါ — အမျိုးအစားကို ကိုယ်တိုင် ရွေးပေးပါ။"}}catch(e){$("phDetect").textContent="ဓာတ်ပုံကို ဖတ်လိုက်ပါပြီ — အမျိုးအစားကို ကိုယ်တိုင် အတည်ပြုပါ။"}};im.src=url}
+function genPhotoPlan(){var k=$("phType").value,s=SUB[k],price=+$("phPrice").value||0,bud=+$("phBudget").value||10,goal=$("phGoal").value;
+var tier=price>=500000?"high":price>=100000?"mid":"low";
+var camps=[];
+if(tier==="low"){camps=[["Campaign 1 — Precise Prospecting",60,"Ad Set 1 စုံ: Core Interest + Narrow Further"], ["Campaign 2 — Broad / Advantage+",40,"Ad Set 1 စုံ: Interest မထည့်ဘဲ Advantage+"]];}
+else{camps=[["Campaign 1 — Precise Prospecting ("+(tier==="high"?"ဝယ်နိုင်စွမ်းရှိသူ အဓိက":"အဓိက")+ ")",tier==="high"?50:55,"Ad Set 2 စုံ: (က) Core Interest (ခ) Core + Narrow Further (Luxury/Investment/Wedding)"],["Campaign 2 — Broad / Advantage+",tier==="high"?30:30,"Ad Set 1 စုံ: Advantage+ Audience, အသက်/နေရာ သာ သတ်မှတ်"],["Campaign 3 — Retargeting",tier==="high"?20:15,"Custom Audience: Page ကို 365 ရက်အတွင်း Engage လုပ်သူ + Video 75% ကြည့်သူ (Ads Manager မှာ ကိုယ်တိုင် ဆောက်ရပါမယ် — ဒီ Tool က မဆောက်ပေးနိုင်ပါ)"]];}
+var reason=tier==="high"?"ဈေးကြီးပစ္စည်း ဖြစ်လို့ ဝယ်သူ ဆုံးဖြတ်ချိန် ကြာပါတယ် — Retargeting သီးသန့် ခွဲထားမှ စိတ်ဝင်စားပြီးသားလူကို ပြန်လိုက် ပြနိုင်ပါတယ်။":tier==="mid"?"ဈေးလယ်အလတ် ဖြစ်လို့ Precise + Broad နဲ့ လူသစ်ရှာပြီး Retargeting နဲ့ ပြန်ပိတ်တဲ့ ၃ ဆင့် ပုံစံက အကောင်းဆုံးပါ။":"ဈေးနည်းပြီး အရေအတွက် ရောင်းရတဲ့ ပစ္စည်း ဖြစ်လို့ Campaign ၂ ခုနဲ့ ရိုးရိုးရှင်းရှင်း စ၍ စမ်းပါ။ လူ Engage များလာမှ Retargeting ထပ်ထည့်ပါ။";
+var lines=camps.map(function(c,i){return (i+1)+") "+c[0]+"\n   Budget: တစ်ရက် $"+(bud*c[1]/100).toFixed(1)+" ("+c[1]+"%)\n   "+c[2]});
+var hooks=s.hook.map(function(h,i){return (i+1)+". "+h}).join("\n");
+var plan="【Photo Auto Campaign Plan — "+s.n+"】\nပန်းတိုင်: "+goal+"\nဈေးနှုန်း: "+(price?fmt(price)+" ကျပ်":"မထည့်ထား")+" · တစ်ရက် Budget: $"+bud+"\n\nဆောက်သင့်တဲ့ Campaign အရေအတွက်: "+camps.length+" ခု\nအကြောင်းရင်း: "+reason+"\n\n"+lines.join("\n\n")+"\n\n【Detail Targeting — Campaign 1 အတွက်】\nInterests: "+s.core.join(", ")+"\nNarrow Further: "+s.narrow.join(", ")+"\nAge: "+s.age+" · Location: "+s.loc+"\nPlacement: Facebook + Instagram (Feed, Reels, Story) — ရတနာ/တန်ဖိုးကြီး ပစ္စည်းဆိုရင် Reels Video (360° လှည့်ပြ) က အကောင်းဆုံးပါ\n\n【Headline အကြံပြုချက် ၃ ခု】\n"+hooks+"\nCTA: Send Message\n\n【Creative အကြံပြုချက်】 ဓာတ်ပုံကို အနီးကပ် (macro) + လက်ပေါ်တင်ပြ/စကေး နှိုင်းပြပုံ + Certificate ပုံ တွဲတင်ပါ။ '100% အာမခံ' လိုမျိုး စကားလုံး မသုံးပါနဲ့ (Policy tab မှာ အရင် စစ်ပါ)။";
+$("phOut").innerHTML='<div class="out">'+plan.replace(/</g,"&lt;")+'</div><p><button class="btn ghost" onclick="copyTxt(window._phPlan)">📋 Plan ကို Copy ကူးပါ</button></p>';window._phPlan=plan}
+
 fillCats();renderLive();renderSnap();renderComp();$("sDate").value=new Date().toISOString().slice(0,10);
 </script>
 </body>
