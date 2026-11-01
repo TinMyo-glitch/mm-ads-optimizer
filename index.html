@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Myanmar Facebook Ads Optimizer — Vercel Static</title>
+<meta name="description" content="Facebook Ads အတွက် တိကျတဲ့ Audience တည်ဆောက်ရန်၊ Policy စစ်ရန်၊ Budget ခန့်မှန်းရန်နှင့် မြန်မာ Live Ads ကြည့်ရန် tool">
+<style>
+:root{--blue:#1877f2;--dark:#0b1f3a;--bg:#f0f4fa;--card:#fff;--line:#dbe5f2;--bad:#d92d20;--warn:#b54708;--ok:#067647;--mut:#5b6b82}
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans Myanmar","Pyidaungsu",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:#12233d;line-height:1.65}
+header{background:linear-gradient(135deg,var(--dark),#1450a0);color:#fff;padding:26px 18px 18px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 14px}
+h1{margin:0 0 6px;font-size:clamp(22px,4vw,34px)}header p{margin:0;opacity:.92;max-width:760px}
+.badge{display:inline-block;background:#ffd60a;color:#222;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:10px}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:5;overflow-x:auto;white-space:nowrap}
+nav button{border:0;background:none;padding:13px 14px;font-size:15px;cursor:pointer;font-family:inherit;color:var(--mut);border-bottom:3px solid transparent}
+nav button.on{color:var(--blue);border-color:var(--blue);font-weight:700}
+section.tab{display:none;padding:20px 0 40px}section.tab.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,42,80,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+label{font-weight:600;font-size:14px;display:block;margin-bottom:5px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid #b9c9de;border-radius:9px;font:inherit;font-size:15px;background:#fff}
+textarea{min-height:110px;resize:vertical}
+.btn{background:var(--blue);color:#fff;border:0;padding:11px 18px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}.btn.ghost{background:#e8effa;color:#1450a0}.btn.danger{background:#fee4e2;color:var(--bad)}
+.btn.sm{padding:6px 12px;font-size:14px}
+.out{background:#f6f9fd;border:1px dashed #9db9dd;border-radius:10px;padding:14px;white-space:pre-wrap;word-break:break-word;font-size:14.5px}
+.score{font-size:40px;font-weight:800}.flag{border-left:5px solid var(--warn);background:#fffaeb;padding:10px 12px;margin:9px 0;border-radius:6px}.flag.high{border-color:var(--bad);background:#fef3f2}
+small,.mut{color:var(--mut)}a.live{display:flex;justify-content:space-between;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 13px;text-decoration:none;color:#12233d}a.live:hover{border-color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.bar{height:14px;background:var(--blue);border-radius:99px;min-width:2px}
+.notice{background:#fffaeb;border:1px solid #f5d98b;border-radius:10px;padding:12px 14px}
+.okbox{background:#ecfdf3;border:1px solid #8adbb2;border-radius:10px;padding:12px 14px}
+.kpi{font-size:24px;font-weight:800;color:var(--dark)}footer{padding:24px 0 40px;color:var(--mut);font-size:13.5px}
+@media(max-width:560px){.card{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<span class="badge">VERCEL STATIC VERSION · LOGIN မလို</span>
+<h1>🚀 Myanmar Facebook Ads Optimizer</h1>
+<p>တိကျတဲ့ Target Audience တည်ဆောက်ပါ · Ad Policy စစ်ပါ · Budget ခန့်မှန်းပါ · မြန်မာနိုင်ငံမှာ အဲဒီနေ့ တကယ်တင်ထားတဲ့ Ads တွေကို Meta Ad Library မှာ Live ကြည့်ပါ</p>
+</div></header>
+<nav><div class="wrap" style="padding:0">
+<button class="on" data-t="aud">🎯 Audience Builder</button><button data-t="pol">🛡️ Policy Checker</button><button data-t="bud">💰 Budget</button><button data-t="live">📡 Live Ads (Myanmar)</button><button data-t="snap">📈 Daily Snapshot</button><button data-t="comp">👀 Competitor</button>
+</div></nav>
+<main class="wrap">
+
+<!-- AUDIENCE -->
+<section class="tab on" id="aud">
+<div class="card"><h2>🎯 Precision Audience Builder</h2>
+<div class="grid">
+<div><label>လုပ်ငန်း အမျိုးအစား</label><select id="aCat"></select></div>
+<div><label>ကုန်ပစ္စည်း / ဝန်ဆောင်မှု (ဥပမာ: Whitening Serum)</label><input id="aProd" placeholder="ရေးထည့်ပါ (မဖြစ်မနေ မလို)"></div>
+<div><label>Campaign Objective</label><select id="aObj"><option>Sales (ရောင်းအား)</option><option>Messages (Messenger စကားပြော)</option><option>Leads (ဖုန်း/စာရင်း)</option><option>Traffic (Website သွား)</option><option>Engagement (Like/Comment)</option></select></div>
+<div><label>နေရာ (Location)</label><select id="aLoc"></select></div>
+<div><label>အသက် အနည်းဆုံး</label><input type="number" id="aAgeMin" value="20" min="13" max="65"></div>
+<div><label>အသက် အများဆုံး</label><input type="number" id="aAgeMax" value="44" min="13" max="65"></div>
+<div><label>ကျား / မ</label><select id="aGender"><option value="all">နှစ်မျိုးလုံး</option><option value="f">အမျိုးသမီး</option><option value="m">အမျိုးသား</option></select></div>
+<div><label>Placement</label><select id="aPlace"><option>Facebook + Instagram (Feed, Reels, Story)</option><option>Facebook သာ</option><option>Instagram သာ</option><option>Advantage+ Placements (အကုန်)</option></select></div>
+</div>
+<p><button class="btn" onclick="buildAudience()">Audience ၃ စုံ ထုတ်ပေးပါ</button></p>
+<div id="audOut"></div>
+<p class="mut"><small>Reach ခန့်မှန်းချက်များသည် နေရာ၏ Facebook သုံးသူ အရေအတွက် အခြေခံ တွက်ချက်ထားသော အကြမ်းဖျင်း ခန့်မှန်းချက်သာ ဖြစ်ပြီး Ads Manager ထဲမှာ Meta ပြတဲ့ Audience Size က အတိအကျဆုံး ဖြစ်သည်။</small></p>
+</div></section>
+
+<!-- POLICY -->
+<section class="tab" id="pol">
+<div class="card"><h2>🛡️ Policy &amp; Creative Checker</h2>
+<p class="mut">တင်မယ့် Ad စာသားကို ကူးထည့်ပြီး စစ်ပါ။ Meta Policy နဲ့ ငြိနိုင်တဲ့ စကားလုံးတွေကို ရှာပေးပြီး ပိုလုံခြုံတဲ့ အစားထိုးရေးနည်း အကြံပြုပါမယ်။</p>
+<textarea id="pText" placeholder="ဥပမာ: အသက် ၃၀ ကျော် အမျိုးသမီးများအတွက်! ၁၀၀% အာမခံ၊ မသုံးမီ/သုံးပြီး ကွာခြားချက် ကြည့်ပါ..."></textarea>
+<p><button class="btn" onclick="checkPolicy()">စစ်ဆေးပါ</button></p>
+<div id="polOut"></div>
+</div></section>
+
+<!-- BUDGET -->
+<section class="tab" id="bud">
+<div class="card"><h2>💰 Budget &amp; Results Estimator</h2>
+<div class="grid">
+<div><label>လုပ်ငန်း အမျိုးအစား</label><select id="bCat"></select></div>
+<div><label>တစ်ရက် Budget (USD $)</label><input type="number" id="bUsd" value="5" min="1" step="0.5"></div>
+<div><label>ရက်ပေါင်း</label><input type="number" id="bDays" value="7" min="1" max="90"></div>
+<div><label>ဒေါ်လာစျေး (1 USD = ကျပ်)</label><input type="number" id="bRate" value="4500" min="1000" step="100"></div>
+<div><label>ပန်းတိုင်</label><select id="bGoal"><option value="msg">Messages (စကားပြော)</option><option value="reach">Reach (မြင်သူ)</option><option value="click">Clicks (နှိပ်သူ)</option></select></div>
+</div>
+<p><button class="btn" onclick="calcBudget()">ခန့်မှန်းပါ</button></p>
+<div id="budOut"></div>
+<p class="mut"><small>ခန့်မှန်းချက်များသည် မြန်မာ Ads ဈေးကွက်အတွေ့အကြုံ CPM/CPC အပိုင်းအခြားများအပေါ် အခြေခံထားပြီး ရလဒ်အမှန်သည် Creative, Audience နဲ့ ပြိုင်ဆိုင်မှုအပေါ် မူတည်၍ ကွာခြားနိုင်သည် — အာမခံချက် မဟုတ်ပါ။</small></p>
+</div></section>
+
+<!-- LIVE -->
+<section class="tab" id="live">
+<div class="notice"><b>အမှန်အတိုင်း သိထားရန်:</b> Meta က မြန်မာနိုင်ငံအတွက် နေ့စဉ် ကြော်ငြာတင်သူ အရေအတွက် အတိအကျနဲ့ ပြိုင်ဘက်တွေရဲ့ Interest Targeting ကို ထုတ်ပြန်မထားပါ (Targeting ထုတ်ပြန်မှုသည် EU/UK နှင့် နိုင်ငံရေး Ads အတွက်သာ)။ ဒါကြောင့် အောက်က ခလုတ်တွေက နှိပ်တဲ့အချိန်မှာ <b>Meta Ad Library တရားဝင် site မှာ တကယ် Live ဖြစ်နေတဲ့</b> မြန်မာ Active Ads တွေကို တိုက်ရိုက် ဖွင့်ပေးတာပါ — ကိန်းဂဏန်းအတု မပြပါ။</div>
+<div class="card"><h2>📡 Category အလိုက် Live Ads</h2><div class="grid" id="liveCats"></div></div>
+<div class="card"><h2>🔎 ကိုယ်ပိုင် Keyword / Page နာမည်နဲ့ Live ရှာရန်</h2>
+<div class="grid"><div><label>Keyword သို့မဟုတ် Page နာမည်</label><input id="liveQ" placeholder="ဥပမာ: အလှကုန်, KBZ, သင်တန်း"></div></div>
+<p><button class="btn" onclick="openLiveCustom()">Meta Ad Library မှာ Live ဖွင့်ပါ ↗</button></p></div>
+<div class="card"><h2>📖 Live Ads ကို ဘယ်လို ဖတ်မလဲ (Target ခန့်မှန်းနည်း)</h2>
+<ul>
+<li><b>ရက်ကြာချိန်:</b> Ad တစ်ခု ၇ ရက်+ ဆက်တင်ထားရင် အလုပ်ဖြစ်နေလို့ ဖြစ်နိုင်ခြေများ · ၁၄ ရက်+ = ကောင်းနေတဲ့ Ad · ၃၀ ရက်+ = Winner Ad လို့ ယူဆနိုင်</li>
+<li><b>စာသား/ဘာသာစကား:</b> မြန်မာစာနဲ့ ဘယ်အသက်အရွယ် စကားပြောဟန် သုံးထားလဲ ကြည့်ရင် ဦးတည်တဲ့ လူအုပ်ကို ခန့်မှန်းနိုင်တယ်</li>
+<li><b>Format:</b> Video/Reels = လူအများ ကြည့်ရှုမှု · Carousel = ပစ္စည်းအများကြီး ပြချင်တာ · ပုံတစ်ပုံ = Message/Sale တိုက်ရိုက်</li>
+<li><b>CTA ခလုတ်:</b> Send Message = Messenger ရောင်းချင်တာ · Shop Now = Website/Online Shop · Learn More = သင်တန်း/ဝန်ဆောင်မှု</li>
+<li>ဒါတွေဟာ Creative ကနေ <b>ခန့်မှန်း</b>တာဖြစ်ပြီး Meta ထုတ်ပြန်ထားတဲ့ Targeting အတိအကျ မဟုတ်ပါ</li>
+</ul></div></section>
+
+<!-- SNAPSHOT -->
+<section class="tab" id="snap">
+<div class="card"><h2>📈 Daily Snapshot Tracker</h2>
+<p class="mut">Live Ads မှာ Category/Keyword တစ်ခုကို ရှာပြီး Meta ပြတဲ့ ရလဒ် အရေအတွက်ကို ဒီမှာ နေ့စဉ် မှတ်ထားပါ။ ရက်များလာရင် ဘယ် Category မှာ Ads တွေ တိုး/လျော့နေလဲ Trend မြင်ရပါမယ်။ <b>မှတ်ချက်:</b> ဒီ Static version မှာ မှတ်တမ်းကို ဒီစက်/ဒီ Browser ထဲမှာပဲ သိမ်းပါတယ် (localStorage) — စက်ပြောင်းရင် မပါသွားပါ။</p>
+<div class="grid">
+<div><label>နေ့ရက်</label><input type="date" id="sDate"></div>
+<div><label>Category / Keyword</label><input id="sKey" placeholder="ဥပမာ: သင်တန်း"></div>
+<div><label>Ad Library မှာ တွေ့တဲ့ အရေအတွက်</label><input type="number" id="sCount" min="0" placeholder="ဥပမာ: 1250"></div>
+<div><label>မှတ်ချက်</label><input id="sNote" placeholder="ရွေးချယ်မှု"></div>
+</div>
+<p><button class="btn" onclick="addSnap()">မှတ်တမ်း ထည့်ပါ</button> <button class="btn ghost" onclick="exportCsv('snap')">CSV ထုတ်ပါ</button></p>
+<div id="snapOut"></div></div></section>
+
+<!-- COMPETITOR -->
+<section class="tab" id="comp">
+<div class="card"><h2>👀 Competitor Tracker</h2>
+<div class="grid">
+<div><label>ပြိုင်ဘက် Page နာမည်</label><input id="cPage" placeholder="Page နာမည်"></div>
+<div><label>Ad Format</label><select id="cFmt"><option>Video / Reels</option><option>ပုံ (Image)</option><option>Carousel</option><option>မသိသေး</option></select></div>
+<div><label>တင်ထားတာ ရက်ပေါင်း</label><input type="number" id="cDays" min="0" placeholder="ဥဪ: 21"></div>
+<div><label>CTA ခလုတ်</label><input id="cCta" placeholder="ဥပမာ: Send Message"></div>
+<div><label>ခန့်မှန်း Audience / မှတ်ချက်</label><input id="cNote" placeholder="ဘယ်သူ့ကို ဦးတည်ထားပုံရလဲ"></div>
+</div>
+<p><button class="btn" onclick="addComp()">ပြိုင်ဘက် ထည့်ပါ</button> <button class="btn ghost" onclick="exportCsv('comp')">CSV ထုတ်ပါ</button></p>
+<div id="compOut"></div></div></section>
+</main>
+<footer><div class="wrap">Myanmar Facebook Ads Optimizer — Static Version · မှတ်တမ်းများသည် ဒီ Browser ထဲတွင်သာ သိမ်းသည် · Live Ads ဒေတာသည် Meta Ad Library (facebook.com/ads/library) မှ တိုက်ရိုက် ဖြစ်သည်</div></footer>
+
+<script>
+var CATS={
+shop:{n:"Online Shop / အွန်လိုင်းစျေး",i:["Online shopping","Facebook Marketplace","Shopee","Lazada","E-commerce"],cpm:[0.7,2.0],msg:[0.25,0.9]},
+cosmetic:{n:"အလှကုန် / Skincare",i:["Skin care","Beauty","Cosmetics","L'Oréal","Makeup"],cpm:[0.8,2.4],msg:[0.3,1.1]},
+fashion:{n:"Fashion / အဝတ်အထည်",i:["Fashion","Zara","Online fashion","Shopping and fashion"],cpm:[0.7,2.1],msg:[0.25,1.0]},
+food:{n:"အစားအသောက် / Food & Beverage",i:["Food","Restaurant","Food delivery","Cooking"],cpm:[0.6,1.8],msg:[0.2,0.8]},
+edu:{n:"ပညာရေး / သင်တန်း",i:["Education","English language","Online learning","IELTS"],cpm:[1.0,3.0],msg:[0.5,1.8]},
+realestate:{n:"အိမ်ခြံမြေ",i:["Real estate","Property","Apartment","Condo"],cpm:[1.5,4.5],msg:[1.0,3.5]},
+mobile:{n:"Mobile / Electronics",i:["Samsung","Apple","Xiaomi","Mobile phone","Technology"],cpm:[0.9,2.6],msg:[0.35,1.2]},
+jobs:{n:"အလုပ်အကိုင် / Jobs",i:["Jobs","Career","LinkedIn","Job search"],cpm:[0.8,2.2],msg:[0.4,1.4]},
+travel:{n:"ခရီးသွား / Travel",i:["Travel","Tourism","Hotel","Airline"],cpm:[0.9,2.5],msg:[0.4,1.5]},
+health:{n:"ကျန်းမာရေး / ဆေး",i:["Health","Pharmacy","Wellness","Fitness"],cpm:[1.0,2.8],msg:[0.5,1.6]},
+salon:{n:"Beauty Salon / Spa",i:["Beauty salon","Spa","Hair care","Nail art"],cpm:[0.7,2.0],msg:[0.3,1.0]},
+car:{n:"ကား / Automotive",i:["Car","Toyota","Automotive","Driving"],cpm:[1.2,3.6],msg:[0.8,2.8]},
+finance:{n:"ငွေကြေး / Finance",i:["Banking","Mobile banking","KBZPay","Wave Money"],cpm:[1.2,3.4],msg:[0.6,2.0]},
+digital:{n:"Digital Service / Agency",i:["Digital marketing","Social media","Business","Entrepreneurship"],cpm:[1.0,3.0],msg:[0.5,1.8]}};
+var LOCS={"my":"မြန်မာတစ်နိုင်ငံလုံး",ygn:"ရန်ကုန်",mdy:"မန္တလေး",npt:"နေပြည်တော်",bgo:"ပဲခူး",tgi:"တောင်ကြီး / ရှမ်း",mlm:"မော်လမြိုင်",pth:"ပုသိမ်"};
+var LOCBASE={my:14500000,ygn:3400000,mdy:950000,npt:320000,bgo:430000,tgi:380000,mlm:310000,pth:290000};
+var LIVE=[["အလှကုန်","အလှကုန်"],["Online Shop","online shop"],["သင်တန်း","သင်တန်း"],["အိမ်ခြံမြေ","အိမ်ခြံမြေ"],["Fashion","fashion"],["အစားအသောက်","restaurant"],["Mobile ဖုန်း","mobile phone"],["အလုပ်အကိုင်","job"],["ခရီးသွား","travel"],["ကျန်းမာရေး","health"],["ကား","car"],["Skincare (EN)","skincare"],["Course (EN)","online course"],["Real Estate (EN)","real estate"],["Food Delivery (EN)","food delivery"],["Banking / Pay","KBZPay"],["Digital Marketing","digital marketing"]];
+function $(i){return document.getElementById(i)}
+function fillCats(){var h="";for(var k in CATS)h+='<option value="'+k+'">'+CATS[k].n+"</option>";$("aCat").innerHTML=h;$("bCat").innerHTML=h;var l="";for(var x in LOCS)l+='<option value="'+x+'">'+LOCS[x]+"</option>";$("aLoc").innerHTML=l}
+document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){document.querySelectorAll("nav button").forEach(function(x){x.classList.remove("on")});document.querySelectorAll("section.tab").forEach(function(x){x.classList.remove("on")});b.classList.add("on");$(b.dataset.t).classList.add("on")}});
+function fmt(n){return Math.round(n).toLocaleString("en-US")}
+function estReach(loc,amin,amax,gender,mult){var base=LOCBASE[loc]||1000000;var ageF=Math.max(.08,(Math.min(amax,65)-Math.max(amin,18)+1)/48);var gF=gender==="all"?1:0.52;return base*ageF*gF*mult}
+function buildAudience(){var c=CATS[$("aCat").value],prod=$("aProd").value.trim(),loc=$("aLoc").value,amin=+$("aAgeMin").value||18,amax=+$("aAgeMax").value||65,g=$("aGender").value,obj=$("aObj").value,pl=$("aPlace").value;
+var sets=[["1) Precise (တိကျဆုံး — စတင်ရန် အကောင်းဆုံး)",c.i.slice(0,3).join(", ")+" + Narrow Further နဲ့ ထပ်ရန်: "+(c.i[3]||"Online shopping"),0.16],["2) Balanced (ချိန်ညှိထားသော)",c.i.join(", "),0.34],["3) Broad / Advantage+ (ကျယ်ကျယ် — Budget များမှ)", "Interest မထည့်ဘဲ Advantage+ Audience",1.0]];
+var txt="",html="";sets.forEach(function(s){var r1=estReach(loc,amin,amax,g,s[1]*0.8),r2=estReach(loc,amin,amax,g,s[1]*1.2);var block="\nObjective: "+obj+"\nLocation: "+LOCS[loc]+"\nAge: "+amin+"–"+amax+" · Gender: "+(g==="f"?"အမျိုးသမီး":g==="m"?"အမျိုးသား":"နှစ်မျိုးလုံး")+"\nInterests: "+s[1]+"\nPlacement: "+pl+(prod?"\nProduct: "+prod:"")+"\nခန့်မှန်း Reach: "+fmt(r1)+" – "+fmt(r2);txt+=block+"\n\n";html+='<div class="card"><b>'+s[0]+'</b><div class="out">'+block.replace(/</g,"&lt;")+"</div></div>"});
+var warn=estReach(loc,amin,amax,g,0.16)<20000?'<div class="notice">⚠️ Precise audience က 20,000 အောက် နည်းနေပါတယ် — အသက်အပိုင်းကို ချဲ့ပါ၊ သို့မဟုတ် Interest တစ်ခု လျှော့ပါ။ ကျဉ်းလွန်းရင် Ad စျေးကြီးပြီး လူနည်းနည်းပဲ မြင်ပါမယ်။</div>':"";
+$("audOut").innerHTML=warn+html+'<button class="btn ghost" onclick="copyTxt(window._audTxt)">📋 Audience ၃ စုံလုံး Copy ကူးပါ</button>';window._audTxt=txt}
+function copyTxt(t){navigator.clipboard.writeText(t||"").then(function(){alert("Copy ကူးပြီးပါပြီ — Ads Manager ထဲမှာ Paste ချလို့ရပါပြီ")},function(){alert("Copy မရပါ — စာကို လက်ဖြင့် ရွေးကူးပါ")})}
+var RULES=[
+[/are you (a)?(woman|man|female|male)|you are \d|အသက်?\d+?(ကျော်|နှစ်)|အမျိုးသမီးများအတွက်|အမျိုးသားများအတွက်/i,"high","Personal Attributes — Meta က 'သင်' ဟု လူကို တိုက်ရိုက် ရည်ညွှန်းပြီး အသက်/ကျား-မ ပြောတာကို တားမြစ်ပါတယ်","'အမျိုးသမီးများ' အစား ကုန်ပစ္စည်းအကျိုးကျေးဇူးကိုသာ ရေးပါ၊ လူကို မရည်ညွှန်းပါနဲ့"],
+[/100\s?%|အာမခံ(ချက်)??(အပြည့်)?|guaranteed|သေချာပေါက်|လုံးဝ?(ပျောက်|ကျိန်းသေ)/i,"high","မဖြစ်နိုင်သော / အလွန်အကျွံ အာမခံချက်","'100% အာမခံ' အစား 'အသုံးပြုသူများစွာ ကျေနပ်ကြသည်' လို့ သက်သေနဲ့ ရေးပါ"],
+[/မသုံးမီ|သုံးပြီး|before.{0,12}after/i,"high","Before / After နှိုင်းယှဉ်ချက် — ကျန်းမာရေး/အလှကုန် Ads မှာ တားမြစ်နိုင်ပါတယ်","Before/After ပုံအစား ပစ္စည်းပုံနဲ့ အကျိုးကျေးဇူးကိုသာ ပြပါ"],
+[/တစ်လ.{0,10}(ချမ်းသာ|သိန်း?\d+)|income|ဝင်ငွေ?တိုး|ချမ်းသာချင်/i,"high","ဝင်ငွေ / ချမ်းသာမှု အာမခံချက် (ငွေကြေး ကြော်ငြာ ကန့်သတ်ချက်)","ဝင်ငွေ အာမခံမပြောဘဲ ဝန်ဆောင်မှုအကြောင်းပဲ ရေးပါ"],
+[/အံ့အားသင့်|shocking|မယုံနိုင်|ချက်ချင်း?(နှိပ်|ကြည့်)|click now/i,"med","Sensational / Clickbait စကားလုံး","အလွန်အကျွံ မပြောဘဲ အကျိုးကျေးဇူးကို ရှင်းရှင်း ရေးပါ"],
+[/[A-Z]{5,}/,"med","အင်္ဂလိပ် စာလုံးကြီး အလွန်အကျွံ သုံးထားခြင်း (spam ပုံစံ)","စာလုံးကြီးချည်း မရေးပါနဲ့"],
+[/loan|အကြွေး|ချေးငွေ/i,"med","ငွေချေး / အကြွေး ဆိုင်ရာ — အထူး စစ်ဆေးခံရနိုင်ပါတယ်","Meta ရဲ့ Special Ad Category သတ်မှတ်ချက် ရှိမရှိ အရင် စစ်ပါ"]];
+function checkPolicy(){var t=$("pText").value.trim();if(!t){$("polOut").innerHTML='<div class="notice">စာသား အရင် ထည့်ပါ</div>';return}
+var flags=[];RULES.forEach(function(r){var m=t.match(r[0]);if(m)flags.push({sev:r[1],name:r[2],fix:r[3],hit:m[0]})});
+var em=(t.match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu)||[]).length;if(em>8)flags.push({sev:"med",name:"Emoji အလွန်များခြင်း ("+em+" ခု)",fix:"Emoji ၃–၅ ခုထက် မပိုပါနဲ့",hit:"emoji"});
+var score=Math.max(5,100-flags.reduce(function(a,f){return a+(f.sev==="high"?28:12)},0));if(!flags.length)score=97;
+var h='<div class="card"><div class="score" style="color:'+(score>=70?"var(--ok)":score>=40?"var(--warn)":"var(--bad)")+'">'+score+" / 100</div><b>"+(score>=70?"အန္တရာယ် နည်းပါတယ် — တင်လို့ အဆင်ပြေနိုင်ပါတယ်":score>=40?"အန္တရာယ် အလယ်အလတ် — အောက်က အချက်တွေ ပြင်ပြီးမှ တင်ပါ":"အန္တရာယ် မြင့်ပါတယ် — မပြင်ဘဲ တင်ရင် Reject / Page ထိခိုက်နိုင်ပါတယ်")+"</b></div>";
+if(!flags.length)h+='<div class="okbox">✅ Policy နဲ့ ငြိနိုင်တဲ့ စကားလုံး မတွေ့ပါ။ (ဒါက အလိုအလျောက် စစ်ဆေးမှုသာဖြစ်ပြီး Meta ရဲ့ နောက်ဆုံးဆုံးဖြတ်ချက်ကို အစားမထိုးနိုင်ပါ)</div>';
+flags.forEach(function(f){h+='<div class="flag '+(f.sev==="high"?"high":"")+'"><b>'+(f.sev==="high"?"🔴 မြင့်":"🟡 အလယ်")+" — "+f.name+'</b><br><small>တွေ့ရှိချက်: "'+String(f.hit).replace(/</g,"&lt;")+'"</small><br>ပြင်နည်း: '+f.fix+"</div>"});
+$("polOut").innerHTML=h}
+function calcBudget(){var c=CATS[$("bCat").value],usd=+$("bUsd").value||0,days=+$("bDays").value||1,rate=+$("bRate").value||4500,goal=$("bGoal").value,total=usd*days;
+var reachLo=total/c.cpm[1]*1000,reachHi=total/c.cpm[0]*1000;var res="";
+if(goal==="msg"){res="ခန့်မှန်း Messages: <b>"+fmt(total/c.msg[1])+" – "+fmt(total/c.msg[0])+"</b> ခု"}else if(goal==="click"){res="ခန့်မှန်း Clicks: <b>"+fmt(total/(c.msg[1]*1.4))+" – "+fmt(total/(c.msg[0]*1.4))+"</b> ခု"}else{res="ခန့်မှန်း မြင်ရမယ့်လူ (Reach) ကို အောက်မှာ ကြည့်ပါ"}
+$("budOut").innerHTML='<div class="card"><div class="grid"><div>စုစုပေါင်း Budget<div class="kpi">$'+fmt(total)+"</div><small>≈ ကျပ် "+fmt(total*rate)+'</small></div><div>ခန့်မှန်း Reach<div class="kpi">'+fmt(reachLo)+" – "+fmt(reachHi)+'</div><small>လူဦးရေ (အကြမ်းဖျင်း)</small></div><div>ပန်းတိုင် ရလဒ်<div style="font-size:17px;margin-top:6px">'+res+"</div></div></div></div>"}
+function liveUrl(q){return "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=MM&q="+encodeURIComponent(q)+"&search_type=keyword_unordered&media_type=all"}
+function renderLive(){$("liveCats").innerHTML=LIVE.map(function(x){return '<a class="live" target="_blank" rel="noopener" href="'+liveUrl(x[1])+'"><span>'+x[0]+'</span><span>Live ↗</span></a>'}).join("")}
+function openLiveCustom(){var q=$("liveQ").value.trim();if(!q){alert("Keyword အရင် ထည့်ပါ");return}window.open(liveUrl(q),"_blank")}
+function load(k){try{return JSON.parse(localStorage.getItem(k)||"[]")}catch(e){return[]}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function addSnap(){var d=$("sDate").value||new Date().toISOString().slice(0,10),k=$("sKey").value.trim(),n=+$("sCount").value;if(!k||isNaN(n)){alert("Keyword နဲ့ အရေအတွက် ထည့်ပါ");return}var a=load("mm_ads_snapshots_v1");a.push({d:d,k:k,n:n,note:$("sNote").value.trim()});save("mm_ads_snapshots_v1",a);renderSnap()}
+function delSnap(i){var a=load("mm_ads_snapshots_v1");a.splice(i,1);save("mm_ads_snapshots_v1",a);renderSnap()}
+function renderSnap(){var a=load("mm_ads_snapshots_v1");a.sort(function(x,y){return x.d<y.d?-1:1});if(!a.length){$("snapOut").innerHTML='<p class="mut">မှတ်တမ်း မရှိသေးပါ — Live tab ကနေ Category တစ်ခု နှိပ်ကြည့်ပြီး တွေ့တဲ့ အရေအတွက်ကို ဒီမှာ စမှတ်ပါ။</p>';return}
+var max=Math.max.apply(null,a.map(function(x){return x.n}))||1;var rows=a.map(function(x,i){var prev=a.filter(function(y){return y.k===x.k&&y.d<x.d}).pop();var delta=prev?((x.n-prev.n)>=0?"+":"")+(x.n-prev.n):"-";return `<tr><td>${x.d}</td><td>${x.k.replace(/</g,"&lt;")}</td><td><div class="bar" style="width:${Math.max(3,x.n/max*120)}px"></div> ${fmt(x.n)}</td><td>${delta}</td><td>${(x.note||"").replace(/</g,"&lt;")}</td><td><button class="btn danger sm" onclick="delSnap(${i})">ဖျက်</button></td></tr>`}).join("");
+$("snapOut").innerHTML="<table><tr><th>နေ့ရက်</th><th>Keyword</th><th>အရေအတွက်</th><th>အရင်နေ့နဲ့ ကွာ</th><th>မှတ်ချက်</th><th></th></tr>"+rows+"</table>"}
+function addComp(){var p=$("cPage").value.trim();if(!p){alert("Page နာမည် ထည့်ပါ");return}var a=load("mm_ads_competitors_v1");a.push({p:p,f:$("cFmt").value,days:+$("cDays").value||0,cta:$("cCta").value.trim(),note:$("cNote").value.trim()});save("mm_ads_competitors_v1",a);renderComp()}
+function delComp(i){var a=load("mm_ads_competitors_v1");a.splice(i,1);save("mm_ads_competitors_v1",a);renderComp()}
+function renderComp(){var a=load("mm_ads_competitors_v1");if(!a.length){$("compOut").innerHTML='<p class="mut">ပြိုင်ဘက် မှတ်တမ်း မရှိသေးပါ။</p>';return}
+var rows=a.map(function(x,i){var w=x.days>=30?"🏆 Winner ဖြစ်နိုင် (30+ ရက်)":x.days>=14?"✅ ကောင်းနေပုံ (14+ ရက်)":x.days>=7?"👀 စောင့်ကြည့်ရန် (7+ ရက်)":"အသစ်";return `<tr><td>${x.p.replace(/</g,"&lt;")}</td><td>${x.f}</td><td>${x.days} ရက် · ${w}</td><td>${(x.cta||"").replace(/</g,"&lt;")}</td><td>${(x.note||"").replace(/</g,"&lt;")}</td><td><a target="_blank" rel="noopener" href="${liveUrl(x.p)}">Live ပြန်စစ် ↗</a></td><td><button class="btn danger sm" onclick="delComp(${i})">ဖျက်</button></td></tr>`}).join("");
+$("compOut").innerHTML="<table><tr><th>Page</th><th>Format</th><th>ရက်ကြာ / အဆင့်</th><th>CTA</th><th>ခန့်မှန်း / မှတ်ချက်</th><th></th><th></th></tr>"+rows+"</table>"}
+function exportCsv(kind){var a=load(kind==="snap"?"mm_ads_snapshots_v1":"mm_ads_competitors_v1");if(!a.length){alert("ထုတ်ရန် မှတ်တမ်း မရှိသေးပါ");return}var keys=Object.keys(a[0]);var csv=keys.join(",")+"\n"+a.map(function(r){return keys.map(function(k){return '"'+String(r[k]==null?"":r[k]).replace(/"/g,'""')+'"'}).join(",")}).join("\n");var b=new Blob(["\ufeff"+csv],{type:"text/csv"});var u=URL.createObjectURL(b);var l=document.createElement("a");l.href=u;l.download=kind==="snap"?"ads-snapshots.csv":"competitors.csv";l.click();URL.revokeObjectURL(u)}
+fillCats();renderLive();renderSnap();renderComp();$("sDate").value=new Date().toISOString().slice(0,10);
+</script>
+</body>
+</html>
